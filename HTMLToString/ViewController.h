@@ -10,4 +10,7 @@
 
 @interface ViewController : UIViewController
 
+@property NSMutableArray *ans;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+
 @end

@@ -17,8 +17,67 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //Init memory space to the answer array
+    _ans = [[NSMutableArray alloc] init];
+    
 	// Do any additional setup after loading the view, typically from a nib.
     [self loadDiningMenu];
+    [self printAns];
+    [self loadView];
+  
+}
+
+- (void)loadView
+{
+    UITableView *tableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] style:UITableViewStylePlain];
+    tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    [tableView reloadData];
+    
+    self.view = tableView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // this method is called for each cell and returns height
+    NSString * text = [_ans objectAtIndex:indexPath.row];
+    CGSize textSize = [text sizeWithFont:[UIFont systemFontOfSize: 14.0] forWidth:[tableView frame].size.width - 40.0 lineBreakMode:UILineBreakModeWordWrap];
+    // return either default height or height to fit the text
+    return textSize.height < 44.0 ? 44.0 : textSize.height;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString * cellIdentifier = @"YourTableCell";
+    
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                      reuseIdentifier:cellIdentifier];
+        
+        [[cell textLabel] setNumberOfLines:0]; // unlimited number of lines
+        [[cell textLabel] setLineBreakMode:UILineBreakModeWordWrap];
+        [[cell textLabel] setFont:[UIFont systemFontOfSize: 14.0]];
+    }
+    // Set up the cell
+    cell.textLabel.text = [_ans objectAtIndex:indexPath.row];
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Number of rows
+    return [_ans count];
+}
+
+-(void) printAns
+{
+    for(NSString *i in _ans)
+    {
+        NSLog(@"%@",i);
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,14 +107,15 @@
         [sc scanString:daySplit intoString:nil];
         
         //Declare string day which includes all the info needed for one day
-        NSString *day = nil;
+        NSString *day;
         if ([sc scanUpToString:daySplit intoString:&day]) //the variable day needs a "&" sign because it is strong
         {
-            //NSLog(day);
             NSLog(@"-----------------------------------------------------------");
+            [_ans addObject:@"------------------------------------------"];
             [self loadDay:day];
         }
     }
+    NSLog(@"END");
 }
 
 //load the content of day
@@ -76,6 +136,9 @@
     [sc scanUpToString:@"</div" intoString:&todayDate];
     //Printing out date
     NSLog(@"%@, %@.",today,todayDate);
+    
+    //add to answer array
+    [_ans addObject:[NSString stringWithFormat:@"%@, %@",today, todayDate]];
     
     //Stop right before the meal
     [sc scanUpToString:mealSplit intoString:nil];
@@ -103,6 +166,9 @@
     //Print the current meal
     NSLog(@"    %@",mealCurrent);
     
+    //add to answer
+    [_ans addObject:[NSString stringWithFormat:@"   %@", mealCurrent]];
+    
     //Declare STATION separator
     NSString *stationSplit = @"<div class=\"menu-station\">";
     //Stop right before the station
@@ -113,7 +179,7 @@
         [sc scanString:stationSplit intoString:nil];
         NSString *station;
         [sc scanUpToString:stationSplit intoString:&station];
-        //NSLog(station);
+
         //load station
         [self loadStation:station];
     }
@@ -133,6 +199,9 @@
     //Print the current station
     NSLog(@"        %@",stationCurrent);
     
+    //add to answer array
+    [_ans addObject:[NSString stringWithFormat:@"       %@", stationCurrent]];
+    
     //Declare DISH separator
     NSString *dishSplit = @"<li>";
     NSString *dishStop = @"</li>";
@@ -145,9 +214,16 @@
         //Skip the DISH TAG
         [sc scanString:dishSplit intoString:nil];
         //Declare the dish name
-        NSString *dishCurrent;
+        NSString *dishCurrent=@"";
         [sc scanUpToString:dishStop intoString:&dishCurrent];
+        
         NSLog(@"            %@",dishCurrent);
+        
+        //add to the answer array
+        if ([dishCurrent length]>0)
+        {
+            [_ans addObject:[NSString stringWithFormat:@"           %@", dishCurrent]];
+        }
         //Move the cursor to just before the next dish
         [sc scanUpToString:dishSplit intoString:nil];
     }
