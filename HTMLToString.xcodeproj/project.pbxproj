@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73AF27E918F89D89006D83A3 /* ButtonsOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AF27E818F89D89006D83A3 /* ButtonsOnly.m */; };
 		73F7563318EF6FF50060B6AF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F7563218EF6FF50060B6AF /* Foundation.framework */; };
 		73F7563518EF6FF50060B6AF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F7563418EF6FF50060B6AF /* CoreGraphics.framework */; };
 		73F7563718EF6FF50060B6AF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F7563618EF6FF50060B6AF /* UIKit.framework */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		73AF27E718F89D89006D83A3 /* ButtonsOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonsOnly.h; sourceTree = "<group>"; };
+		73AF27E818F89D89006D83A3 /* ButtonsOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonsOnly.m; sourceTree = "<group>"; };
 		73F7562F18EF6FF50060B6AF /* HTMLToString.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HTMLToString.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73F7563218EF6FF50060B6AF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		73F7563418EF6FF50060B6AF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -117,6 +120,8 @@
 				73F7564418EF6FF50060B6AF /* Main.storyboard */,
 				73F7564718EF6FF50060B6AF /* ViewController.h */,
 				73F7564818EF6FF50060B6AF /* ViewController.m */,
+				73AF27E718F89D89006D83A3 /* ButtonsOnly.h */,
+				73AF27E818F89D89006D83A3 /* ButtonsOnly.m */,
 				73F7564A18EF6FF50060B6AF /* Images.xcassets */,
 				73F7563918EF6FF50060B6AF /* Supporting Files */,
 			);
@@ -250,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				73F7564918EF6FF50060B6AF /* ViewController.m in Sources */,
+				73AF27E918F89D89006D83A3 /* ButtonsOnly.m in Sources */,
 				73F7564318EF6FF50060B6AF /* AppDelegate.m in Sources */,
 				73F7563F18EF6FF50060B6AF /* main.m in Sources */,
 			);
@@ -460,6 +466,7 @@
 				73F7566318EF6FF50060B6AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		73F7566418EF6FF50060B6AF /* Build configuration list for PBXNativeTarget "HTMLToStringTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +475,7 @@
 				73F7566618EF6FF50060B6AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

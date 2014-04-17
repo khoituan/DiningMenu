@@ -10,7 +10,15 @@
 
 @interface ViewController : UIViewController
 
+//declare method to get the name of the day
+- (NSString *) getDays:(NSInteger) indexOfArray;
+
 @property NSMutableArray *ans;
+@property NSInteger increment;
+
+
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+
 
 @end

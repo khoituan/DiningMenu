@@ -9,6 +9,12 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+{
+    NSString *days[7]; //name of the days
+    NSInteger start[7];
+    NSInteger end[7];
+    NSInteger pos;
+}
 
 @end
 
@@ -19,10 +25,12 @@
     [super viewDidLoad];
     //Init memory space to the answer array
     _ans = [[NSMutableArray alloc] init];
+    //set the starting position to zero
+    pos = 0;
     
 	// Do any additional setup after loading the view, typically from a nib.
     [self loadDiningMenu];
-    [self printAns];
+    //[self printAns];
     [self loadView];
   
 }
@@ -42,7 +50,7 @@
 {
     // this method is called for each cell and returns height
     NSString * text = [_ans objectAtIndex:indexPath.row];
-    CGSize textSize = [text sizeWithFont:[UIFont systemFontOfSize: 14.0] forWidth:[tableView frame].size.width - 40.0 lineBreakMode:UILineBreakModeWordWrap];
+    CGSize textSize = [text sizeWithFont:[UIFont systemFontOfSize: 12.0] forWidth:[tableView frame].size.width - 40.0 lineBreakMode:UILineBreakModeWordWrap];
     // return either default height or height to fit the text
     return textSize.height < 44.0 ? 44.0 : textSize.height;
 }
@@ -59,7 +67,7 @@
         
         [[cell textLabel] setNumberOfLines:0]; // unlimited number of lines
         [[cell textLabel] setLineBreakMode:UILineBreakModeWordWrap];
-        [[cell textLabel] setFont:[UIFont systemFontOfSize: 14.0]];
+        [[cell textLabel] setFont:[UIFont systemFontOfSize: 12.0]];
     }
     // Set up the cell
     cell.textLabel.text = [_ans objectAtIndex:indexPath.row];
@@ -72,12 +80,19 @@
     return [_ans count];
 }
 
+
+
 -(void) printAns
 {
     for(NSString *i in _ans)
     {
         NSLog(@"%@",i);
     }
+}
+
+- (NSString *) getDays:(NSInteger) indexOfArray
+{
+    return days[indexOfArray];
 }
 
 - (void)didReceiveMemoryWarning
@@ -113,7 +128,16 @@
             NSLog(@"-----------------------------------------------------------");
             [_ans addObject:@"------------------------------------------"];
             [self loadDay:day];
+            pos++;
         }
+    }
+    end[6]=[_ans count];
+    
+    for (int i = 0; i<7; i++)
+    {
+        NSLog(days[i]);
+        NSLog(@"%d",start[i]);
+        NSLog(@"%d",end[i]);
     }
     NSLog(@"END");
 }
@@ -137,6 +161,13 @@
     //Printing out date
     NSLog(@"%@, %@.",today,todayDate);
     
+    //set up the variables for the 3 arrays days, start and end
+    days[pos]=today;
+    start[pos]=[_ans count];
+    if(pos>0)
+    {
+        end[pos-1]=start[pos]-1;
+    }
     //add to answer array
     [_ans addObject:[NSString stringWithFormat:@"%@, %@",today, todayDate]];
     
@@ -228,6 +259,8 @@
         [sc scanUpToString:dishSplit intoString:nil];
     }
 }
+
+
 
 
 @end
